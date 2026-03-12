@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나의 사회정서역량 알아보기</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="header-badge">사회정서역량 검사</div>
+      <h1>나의 사회정서역량 알아보기</h1>
+      <p class="header-subtitle">
+        나를 돌보는 힘, 친구와 함께하는 힘, 우리 반에서 함께 살아가는 힘을
+        천천히 살펴보는 시간이에요.
+      </p>
+    </header>
+
+    <main class="main-card">
+      <!-- 시작 화면 -->
+      <section id="screen-intro" class="screen active">
+        <div class="intro-box">
+          <h2>검사를 시작해 볼까요?</h2>
+          <p class="guide-text">
+            이 검사는 정답을 맞히는 시험이 아니에요.<br />
+            내 평소 모습에 가깝게, 솔직하게 답해 주세요.
+          </p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="studentClass">반</label>
+              <select id="studentClass">
+                <option value="">반을 선택하세요</option>
+                <option value="2학년 4반">2학년 4반</option>
+                <option value="3학년 3반">3학년 3반</option>
+                <option value="4학년 1반">4학년 1반</option>
+                <option value="6학년 2반">6학년 2반</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="studentNumber">번호</label>
+              <input
+                id="studentNumber"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="50"
+                placeholder="번호를 입력하세요"
+              />
+            </div>
+
+            <div class="form-group form-group-full">
+              <label for="studentName">이름</label>
+              <input
+                id="studentName"
+                type="text"
+                placeholder="이름을 입력하세요"
+                maxlength="20"
+              />
+            </div>
+          </div>
+
+          <div class="intro-notice">
+            <div class="notice-title">응답 방법</div>
+            <ul>
+              <li>총 20문항이에요.</li>
+              <li>5문항씩 4페이지로 나누어져 있어요.</li>
+              <li>문항마다 가장 내 모습에 가까운 답을 골라 주세요.</li>
+            </ul>
+          </div>
+
+          <button id="startBtn" class="primary-btn">검사 시작하기</button>
+        </div>
+      </section>
+
+      <!-- 검사 화면 -->
+      <section id="screen-survey" class="screen">
+        <div class="survey-top">
+          <div class="progress-text">
+            <span id="pageLabel">1 / 4</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="survey-heading">
+          <h2 id="sectionTitle">문항에 답해 주세요</h2>
+          <p id="sectionSubtitle">내 평소 모습에 가깝게 선택하면 됩니다.</p>
+        </div>
+
+        <div id="questionsContainer" class="questions-container"></div>
+
+        <div class="survey-nav">
+          <button id="prevBtn" class="secondary-btn">이전</button>
+          <button id="nextBtn" class="primary-btn">다음</button>
+        </div>
+      </section>
+
+      <!-- 결과 화면 -->
+      <section id="screen-result" class="screen">
+        <div class="result-box">
+          <div class="result-top-message">
+            <div class="result-emoji">🎉</div>
+            <h2>수고했어요!</h2>
+            <p id="resultGreeting">
+              나의 사회정서역량을 천천히 살펴보는 시간을 잘 마쳤어요.
+            </p>
+          </div>
+
+          <div class="result-summary">
+            <div class="summary-card strength-card">
+              <h3>내가 잘 자라고 있는 힘</h3>
+              <div id="strengthList" class="result-list"></div>
+            </div>
+
+            <div class="summary-card growth-card">
+              <h3>더 키워 가면 좋은 힘</h3>
+              <div id="growthList" class="result-list"></div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h3>나의 힘 살펴보기</h3>
+            <p class="chart-guide">
+              숫자 대신, 어떤 힘이 상대적으로 더 잘 자라고 있는지 살펴보세요.
+            </p>
+            <div class="chart-wrap">
+  <canvas id="resultChart"></canvas>
+</div>
+          </div>
+
+          <div class="tips-card">
+            <h3>작은 실천 팁</h3>
+            <ul id="tipsList" class="tips-list"></ul>
+          </div>
+
+          <button id="restartBtn" class="primary-btn">처음으로 돌아가기</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
