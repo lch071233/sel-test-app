@@ -29,15 +29,26 @@
           </p>
 
           <div class="form-grid">
+            <div class="form-group form-group-full">
+              <label for="studentSchool">학교명</label>
+              <input
+                id="studentSchool"
+                type="text"
+                placeholder="예: 서울선린초등학교"
+                maxlength="60"
+                required
+              />
+            </div>
+
             <div class="form-group">
-              <label for="studentClass">반</label>
-              <select id="studentClass">
-                <option value="">반을 선택하세요</option>
-                <option value="2학년 4반">2학년 4반</option>
-                <option value="3학년 3반">3학년 3반</option>
-                <option value="4학년 1반">4학년 1반</option>
-                <option value="6학년 2반">6학년 2반</option>
-              </select>
+              <label for="studentClass">학년·반</label>
+              <input
+                id="studentClass"
+                type="text"
+                placeholder="예: 6학년 2반"
+                maxlength="40"
+                required
+              />
             </div>
 
             <div class="form-group">
@@ -144,6 +155,6 @@
     </main>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20261020-school-class"></script>
 </body>
 </html>

@@ -83,6 +83,7 @@ const likertChoices = [
 
 const appState = {
   student: {
+    schoolName: "",
     className: "",
     number: "",
     name: ""
@@ -98,6 +99,7 @@ const screenIntro = document.getElementById("screen-intro");
 const screenSurvey = document.getElementById("screen-survey");
 const screenResult = document.getElementById("screen-result");
 
+const studentSchoolEl = document.getElementById("studentSchool");
 const studentClassEl = document.getElementById("studentClass");
 const studentNumberEl = document.getElementById("studentNumber");
 const studentNameEl = document.getElementById("studentName");
@@ -131,12 +133,19 @@ function showScreen(screenName) {
 }
 
 function validateIntro() {
+  const schoolName = studentSchoolEl.value.trim();
   const className = studentClassEl.value.trim();
   const number = studentNumberEl.value.trim();
   const name = studentNameEl.value.trim();
 
+  if (!schoolName) {
+    alert("학교명을 입력해 주세요.");
+    studentSchoolEl.focus();
+    return false;
+  }
+
   if (!className) {
-    alert("반을 선택해 주세요.");
+    alert("학년과 반을 입력해 주세요. 예: 6학년 2반");
     studentClassEl.focus();
     return false;
   }
@@ -160,6 +169,7 @@ function validateIntro() {
   }
 
   appState.student = {
+    schoolName,
     className,
     number,
     name
@@ -290,7 +300,7 @@ function renderResult() {
   const strengths = sortedResults.slice(0, 2);
   const growths = sortedResults.slice(2);
 
-  resultGreeting.textContent = `${appState.student.className} ${appState.student.number}번 ${appState.student.name}님, 나의 마음과 관계를 천천히 살펴보는 시간을 잘 마쳤어요.`;
+  resultGreeting.textContent = `${appState.student.schoolName} ${appState.student.className} ${appState.student.number}번 ${appState.student.name}님, 나의 마음과 관계를 천천히 살펴보는 시간을 잘 마쳤어요.`;
 
   strengthList.innerHTML = strengths
     .map(
@@ -411,6 +421,7 @@ function drawChart(results) {
 
 function resetApp() {
   appState.student = {
+    schoolName: "",
     className: "",
     number: "",
     name: ""
@@ -418,6 +429,7 @@ function resetApp() {
   appState.answers = {};
   appState.currentPage = 0;
 
+  studentSchoolEl.value = "";
   studentClassEl.value = "";
   studentNumberEl.value = "";
   studentNameEl.value = "";
@@ -467,7 +479,9 @@ showScreen("intro");
 async function saveResultToSheet() {
   const resultData = calculateResults();
   const payload = {
-    className: appState.student.className,
+    // 기존 시트 저장 코드가 className만 읽더라도 학교명을 함께 보존합니다.
+    // 기존 응답 행과 열 구조는 변경하지 않습니다.
+    className: `${appState.student.schoolName} · ${appState.student.className}`,
     number: appState.student.number,
     name: appState.student.name,
     Q1: appState.answers[1] || "",
